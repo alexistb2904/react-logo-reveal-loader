@@ -1,0 +1,217 @@
+.logo-reveal-root {
+  min-height: 100%;
+}
+
+.site-content {
+  min-height: 100vh;
+}
+
+/* Prevent the page from visibly settling before the reveal is complete. */
+.site-content--loading {
+  transform: scale(1.015);
+}
+
+.site-content--ready {
+  animation: siteSettle 550ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.logo-intro {
+  --intro-background: #f4f2ed;
+  --intro-panel: #476960;
+  --intro-duration: 3200ms;
+
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: auto;
+  animation: introExit var(--intro-duration) linear both;
+}
+
+/*
+ * This transparent element acts as an opening inside an oversized shadow.
+ * The website is visible only through the opening while it expands.
+ */
+.logo-intro__reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: 0 0 0 100vmax var(--intro-background);
+  transform: translate(-50%, -50%);
+  will-change: width, height, border-radius;
+  animation: revealTimeline var(--intro-duration)
+    cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+.logo-intro__card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  width: 96px;
+  aspect-ratio: 1;
+  place-items: center;
+  overflow: hidden;
+  background: var(--intro-panel);
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  will-change: transform, opacity;
+  animation: cardTimeline var(--intro-duration)
+    cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+.logo-intro__mark {
+  display: block;
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  user-select: none;
+  will-change: clip-path, transform, opacity;
+  animation: markTimeline var(--intro-duration)
+    cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+@keyframes markTimeline {
+  0%,
+  24% {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateX(0);
+  }
+
+  42% {
+    opacity: 1;
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    transform: translateX(10%);
+  }
+
+  100% {
+    opacity: 0;
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    transform: translateX(10%);
+  }
+}
+
+@keyframes cardTimeline {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+
+  7%,
+  43% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  58% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.145);
+  }
+
+  61%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.145);
+  }
+}
+
+@keyframes revealTimeline {
+  0%,
+  55% {
+    width: 0;
+    height: 0;
+    border-radius: 2px;
+  }
+
+  60% {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+  }
+
+  77% {
+    width: min(72vw, 720px);
+    height: min(40.5vw, 405px);
+    border-radius: 14px;
+  }
+
+  100% {
+    width: 160vmax;
+    height: 160vmax;
+    border-radius: 0;
+  }
+}
+
+@keyframes introExit {
+  0%,
+  94% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes siteSettle {
+  from {
+    transform: scale(1.015);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .logo-intro__card {
+    width: 78px;
+  }
+
+  @keyframes revealTimeline {
+    0%,
+    55% {
+      width: 0;
+      height: 0;
+      border-radius: 2px;
+    }
+
+    60% {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    77% {
+      width: 84vw;
+      height: 56vw;
+      border-radius: 12px;
+    }
+
+    100% {
+      width: 160vmax;
+      height: 160vmax;
+      border-radius: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-intro,
+  .logo-intro__reveal,
+  .logo-intro__card,
+  .logo-intro__mark,
+  .site-content--ready {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+  }
+}
