@@ -1,101 +1,21 @@
-# React Logo Reveal Loader
+# Axa Logo Animated
 
-A lightweight, dependency-free React intro animation that turns a centered logo into a growing viewport and reveals the website behind it.
+## I wanted an animated logo reveal for the AXA brand, so I made one. It is a React component that uses CSS animations to reveal the logo in different ways.
 
-The animation is driven entirely by CSS. React is only used to lock scrolling during the intro and remove the loader once the animation has finished.
+## Animation demos
 
-## Features
+### Frame
 
-- Pure CSS animation
-- No GSAP or Framer Motion
-- Works with React and Next.js
-- Custom logo, colors, and duration
-- Responsive reveal animation
-- Respects `prefers-reduced-motion`
-- The page is rendered immediately behind the intro
+<video src="output/logo-reveal-frame.mp4" width="800" height="450" controls></video>
 
-## Installation
+### Cinematic
 
-Copy these two files into your project:
+<video src="output/logo-reveal-cinematic.mp4" width="800" height="450" controls></video>
 
-```text
-src/
-├── LogoRevealLoader.jsx
-└── LogoRevealLoader.css
-```
+### Directional
 
-Then import and wrap your application content:
+<video src="output/logo-reveal-directional.mp4" width="800" height="450" controls></video>
 
-```jsx
-import LogoRevealLoader from "./LogoRevealLoader";
+### Precision
 
-export default function App() {
-  return (
-    <LogoRevealLoader
-      logoSrc="/logo.svg"
-      panelColor="#476960"
-      backgroundColor="#f4f2ed"
-      duration={3200}
-    >
-      <main>
-        <h1>Your website</h1>
-      </main>
-    </LogoRevealLoader>
-  );
-}
-```
-
-The logo should ideally be a transparent SVG. A white logo works especially well on a dark panel.
-
-## Props
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `children` | `ReactNode` | — | Website content displayed behind the loader |
-| `logoSrc` | `string` | `/logo.svg` | Path to the logo image |
-| `backgroundColor` | `string` | `#f4f2ed` | Full-screen intro background |
-| `panelColor` | `string` | `#476960` | Logo panel color |
-| `duration` | `number` | `3200` | Total animation duration in milliseconds |
-
-## How it works
-
-The animation follows four stages:
-
-1. The logo card appears in the center.
-2. The logo mark is progressively clipped.
-3. The card contracts into a small square.
-4. That square becomes a growing transparent viewport that reveals the site.
-
-The reveal effect uses a transparent element surrounded by a very large `box-shadow`, which acts as the remaining intro background.
-
-## Next.js
-
-The component already includes the `"use client"` directive, so it can be used directly in a Next.js App Router project.
-
-```jsx
-import LogoRevealLoader from "@/components/LogoRevealLoader";
-
-export default function RootLayout({ children }) {
-  return (
-    <html lang="en">
-      <body>
-        <LogoRevealLoader logoSrc="/logo.svg">
-          {children}
-        </LogoRevealLoader>
-      </body>
-    </html>
-  );
-}
-```
-
-## Accessibility
-
-The loader:
-
-- marks the root as busy while the intro is visible;
-- hides decorative loader content from assistive technologies;
-- shortens animations when the user enables reduced motion.
-
-## License
-
-MIT © Alexis Thierry-Bellefond
+<video src="output/logo-reveal-precision.mp4" width="800" height="450" controls></video>
